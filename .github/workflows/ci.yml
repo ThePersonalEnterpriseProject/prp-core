@@ -26,3 +26,5 @@ jobs:
 
     - name: Run tests
       run: python -m pytest backend/
+      env:
+        PYTHONPATH: backend/src
