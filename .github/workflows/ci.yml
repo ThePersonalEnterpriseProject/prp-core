@@ -25,6 +25,5 @@ jobs:
       run: pip install "./backend[test]"
 
     - name: Run tests
-      run: python -m pytest backend/
-      env:
-        PYTHONPATH: backend/src
+      run: python -m pytest
+      working-directory: ./backend
