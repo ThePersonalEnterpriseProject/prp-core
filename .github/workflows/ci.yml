@@ -11,6 +11,8 @@ on:
 jobs:
   test-backend:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: backend/src
 
     steps:
     - name: Checkout repository
