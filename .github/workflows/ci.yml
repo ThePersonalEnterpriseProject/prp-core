@@ -25,4 +25,4 @@ jobs:
       run: pip install "./backend[test]"
 
     - name: Run tests
-      run: pytest backend/
+      run: python -m pytest backend/
