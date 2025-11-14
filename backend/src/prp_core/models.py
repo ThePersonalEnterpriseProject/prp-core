@@ -1,8 +1,10 @@
-import sqlalchemy
-from sqlalchemy import Column, String, Float, DateTime, Enum, ForeignKey
-from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
+
+import sqlalchemy
+from sqlalchemy import Column, DateTime, Enum, Float, ForeignKey, String
+from sqlalchemy.dialects.postgresql import UUID
+
 from .schemas import AccountType
 
 metadata = sqlalchemy.MetaData()

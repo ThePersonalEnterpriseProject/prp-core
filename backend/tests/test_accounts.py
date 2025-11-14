@@ -1,6 +1,8 @@
 
-from fastapi.testclient import TestClient
 from uuid import uuid4
+
+from fastapi.testclient import TestClient
+
 
 def test_create_account(client: TestClient):
     """Test creating a new account."""

@@ -1,6 +1,8 @@
 
-from fastapi.testclient import TestClient
 from uuid import uuid4
+
+from fastapi.testclient import TestClient
+
 
 def test_create_transaction(client: TestClient):
     """Test creating a new transaction for an existing account."""
@@ -62,11 +64,11 @@ def test_read_transactions_for_account(client: TestClient):
     )
 
     # Retrieve all transactions (in a real app, you'd filter by account_id)
-    response = client.get(f"/api/v1/transactions/")
+    response = client.get("/api/v1/transactions/")
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, list)
-    
+
     # Find the transaction we just created
     found = False
     for t in data:
@@ -83,7 +85,11 @@ def test_balance_update_after_transaction(client: TestClient):
     initial_balance = 300.0
     account_response = client.post(
         "/api/v1/accounts/",
-        json={"name": "Balance Test Account", "account_type": "Asset", "balance": initial_balance},
+        json={
+            "name": "Balance Test Account",
+            "account_type": "Asset",
+            "balance": initial_balance,
+        },
     )
     account_data = account_response.json()
     account_id = account_data["id"]

@@ -1,6 +1,6 @@
 import os
+
 import databases
-import sqlalchemy
 from sqlalchemy.ext.asyncio import create_async_engine
 
 DB_USER = os.getenv("POSTGRES_USER")
