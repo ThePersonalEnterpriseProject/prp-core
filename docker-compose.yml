@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - prp_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=prp_user
+      - POSTGRES_PASSWORD=prp_pass
+      - POSTGRES_DB=prp_db
+    ports:
+      - "5432:5432" # Optional: for connecting with a local client
+    networks:
+      - prp_network
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=prp_user
+      - POSTGRES_PASSWORD=prp_pass
+      - POSTGRES_DB=prp_db
+      - POSTGRES_HOST=db
+    networks:
+      - prp_network
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - PUBLIC_BACKEND_URL=http://localhost:8000
+    ports:
+      - "5173:5173"
+    environment:
+      - PUBLIC_BACKEND_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - prp_network
+
+volumes:
+  prp_data:
+
+networks:
+  prp_network:
+    driver: bridge
