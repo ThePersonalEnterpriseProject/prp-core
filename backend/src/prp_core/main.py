@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .api.router import router as api_router
+from .routers import debug
 from .database import database, engine
 from .models import metadata
 
@@ -16,11 +17,21 @@ async def lifespan(app: FastAPI):
     yield
     await database.disconnect()
 
-app = FastAPI(title="PRP-core", lifespan=lifespan)
+app = FastAPI(
+    title="PRP-core API",
+    description="API for The Personal Enterprise Project",
+    version="0.1.0",
+    openapi_url="/api/v1/openapi.json",
+    docs_url="/api/v1/docs",
+    redoc_url="/api/v1/redoc",
+    lifespan=lifespan
+)
 
-# For development, we allow all origins.
-# In production, this should be restricted to the frontend's domain.
-origins = ["*"]
+# CORS
+origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,8 +41,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/health")
-async def health_check():
-    return {"status": "ok"}
-
 app.include_router(api_router, prefix="/api/v1")
+app.include_router(debug.router, prefix="/api/v1", tags=["debug"])

@@ -1,5 +1,12 @@
 {
 	"/": [
 		"src/routes/+page.ts"
+	],
+	"/accounts": [
+		"src/routes/accounts/+page.server.ts"
+	],
+	"/settings": [],
+	"/transactions": [
+		"src/routes/transactions/+page.server.ts"
 	]
 }

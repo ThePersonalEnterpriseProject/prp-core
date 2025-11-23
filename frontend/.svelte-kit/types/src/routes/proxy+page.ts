@@ -1,9 +1,13 @@
 // @ts-nocheck
+import { browser } from '$app/environment';
+import { PUBLIC_BACKEND_URL } from '$env/static/public';
 import type { PageLoad } from './$types';
+
+const backendHost = browser ? PUBLIC_BACKEND_URL : 'http://backend:8000';
 
 export const load = async ({ fetch }: Parameters<PageLoad>[0]) => {
 	try {
-		const res = await fetch('http://localhost:8000/api/v1/accounts');
+		const res = await fetch(`${backendHost}/api/v1/accounts/`);
 		if (!res.ok) {
 			console.error('Failed to fetch accounts:', res.status, res.statusText);
 			return {

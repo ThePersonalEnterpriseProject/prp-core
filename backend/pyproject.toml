@@ -13,6 +13,7 @@ dependencies = [
     "pydantic>=2.8.0",
     "databases[postgresql]",
     "aiosqlite",
+    "faker>=38.2.0",
 ]
 requires-python = ">=3.10"
 

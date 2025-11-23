@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { type Snippet } from 'svelte';
+
+	interface Props {
+		type?: 'button' | 'submit' | 'reset';
+		variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+		class?: string;
+		children: Snippet;
+		onclick?: () => void;
+		disabled?: boolean;
+	}
+
+	let {
+		type = 'button',
+		variant = 'primary',
+		class: className = '',
+		children,
+		onclick,
+		disabled = false
+	}: Props = $props();
+
+	const baseStyles =
+		'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-white';
+	
+	const variants = {
+		primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-indigo-500',
+		secondary: 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 focus-visible:ring-indigo-500',
+		ghost: 'hover:bg-gray-100 hover:text-gray-900 focus-visible:ring-gray-500',
+		danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500'
+	};
+
+	const sizes = 'h-10 py-2 px-4';
+</script>
+
+<button
+	{type}
+	class="{baseStyles} {variants[variant]} {sizes} {className}"
+	{onclick}
+	{disabled}
+>
+	{@render children()}
+</button>

@@ -1,13 +1,16 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll, goto } from '$app/navigation';
 	import { PUBLIC_BACKEND_URL } from '$env/static/public';
+	import Card from '$lib/components/ui/Card.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
+	import Input from '$lib/components/ui/Input.svelte';
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 
-	let name = '';
-	let account_type = 'Asset';
-	let error: string | null = null;
+	let name = $state('');
+	let account_type = $state('Asset');
+	let error: string | null = $state(null);
 
 	async function createAccount() {
 		error = null;
@@ -33,86 +36,96 @@
 	}
 </script>
 
-<div class="container mx-auto p-8">
-	{#if data.error}
-		<div class="alert alert-error shadow-lg">
-			<div>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="stroke-current flex-shrink-0 h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					><path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-					/></svg
-				>
-				<span>{data.error}</span>
-			</div>
+<div class="space-y-8">
+	<!-- Header -->
+	<div class="flex items-center justify-between">
+		<div>
+			<h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+			<p class="text-gray-500 mt-1">Overview of your personal enterprise.</p>
 		</div>
-	{:else}
-		<h1 class="text-4xl font-bold mb-8">Net Worth: ${data.netWorth.toFixed(2)}</h1>
+		<div class="text-right">
+			<p class="text-sm text-gray-500">Net Worth</p>
+			<p class="text-3xl font-bold text-indigo-600">${data.netWorth.toFixed(2)}</p>
+		</div>
+	</div>
 
-		<div class="mb-8">
-			<h2 class="text-2xl font-bold mb-4">Create Account</h2>
-			{#if error}
-				<div class="alert alert-warning shadow-lg mb-4">
-					<div>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="stroke-current flex-shrink-0 h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-							/></svg
-						>
+	<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+		<!-- Create Account Form -->
+		<div class="lg:col-span-1">
+			<Card class="p-6">
+				<h2 class="text-lg font-semibold text-gray-900 mb-4">Add Account</h2>
+				{#if error}
+					<div class="bg-red-50 text-red-700 p-3 rounded-md text-sm mb-4 flex items-start gap-2">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+						</svg>
 						<span>{error}</span>
 					</div>
-				</div>
-			{/if}
-			<form on:submit|preventDefault={createAccount} class="flex gap-4">
-				<input
-					type="text"
-					bind:value={name}
-					placeholder="Account Name"
-					class="input input-bordered w-full max-w-xs"
-				/>
-				<select bind:value={account_type} class="select select-bordered">
-					<option>Asset</option>
-					<option>Liability</option>
-				</select>
-				<button type="submit" class="btn btn-primary">Create</button>
-			</form>
+				{/if}
+				<form onsubmit={(e) => { e.preventDefault(); createAccount(); }} class="space-y-4">
+					<div>
+						<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Account Name</label>
+						<Input id="name" bind:value={name} placeholder="e.g. Chase Checking" required />
+					</div>
+					<div>
+						<label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+						<select
+							id="type"
+							bind:value={account_type}
+							class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+						>
+							<option>Asset</option>
+							<option>Liability</option>
+						</select>
+					</div>
+					<Button type="submit" class="w-full">Create Account</Button>
+				</form>
+			</Card>
 		</div>
 
-		<div>
-			<h2 class="text-2xl font-bold mb-4">Accounts</h2>
-			<div class="overflow-x-auto">
-				<table class="table w-full">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Type</th>
-							<th>Balance</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each data.accounts as account}
+		<!-- Accounts List -->
+		<div class="lg:col-span-2">
+			<Card>
+				<div class="px-6 py-4 border-b border-gray-100">
+					<h2 class="text-lg font-semibold text-gray-900">Accounts</h2>
+				</div>
+				<div class="overflow-x-auto">
+					<table class="w-full text-left text-sm">
+						<thead class="bg-gray-50 text-gray-500">
 							<tr>
-								<td>{account.name}</td>
-								<td>{account.account_type}</td>
-								<td>${account.balance.toFixed(2)}</td>
+								<th class="px-6 py-3 font-medium">Name</th>
+								<th class="px-6 py-3 font-medium">Type</th>
+								<th class="px-6 py-3 font-medium text-right">Balance</th>
 							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
+						</thead>
+						<tbody class="divide-y divide-gray-100">
+							{#each data.accounts as account}
+								<tr 
+									onclick={() => goto(`/transactions?account=${account.id}`)}
+									class="hover:bg-gray-50 transition-colors cursor-pointer"
+								>
+									<td class="px-6 py-4 font-medium text-gray-900">{account.name}</td>
+									<td class="px-6 py-4">
+										<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+											{account.account_type === 'Asset' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+											{account.account_type}
+										</span>
+									</td>
+									<td class="px-6 py-4 text-right font-medium text-gray-900">
+										${account.balance.toFixed(2)}
+									</td>
+								</tr>
+							{:else}
+								<tr>
+									<td colspan="3" class="px-6 py-8 text-center text-gray-500">
+										No accounts yet. Create one to get started!
+									</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
+			</Card>
 		</div>
-	{/if}
+	</div>
 </div>

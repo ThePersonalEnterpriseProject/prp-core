@@ -31,13 +31,14 @@ declare module '$env/static/private' {
 	export const COLORTERM: string;
 	export const GTK_THEME: string;
 	export const PYENV_SHELL: string;
-	export const CSF_MDTVTexturesDirectory: string;
 	export const HYPRLAND_CMD: string;
+	export const CSF_MDTVTexturesDirectory: string;
 	export const XDG_CONFIG_DIRS: string;
 	export const npm_config_cache: string;
 	export const XDG_SESSION_PATH: string;
 	export const NVM_INC: string;
 	export const XDG_MENU_PREFIX: string;
+	export const TERM_PROGRAM_VERSION: string;
 	export const XDG_BACKEND: string;
 	export const CSF_DrawPluginDefaults: string;
 	export const QT_WAYLAND_DISABLE_WINDOWDECORATION: string;
@@ -58,17 +59,18 @@ declare module '$env/static/private' {
 	export const COLOR: string;
 	export const npm_config_local_prefix: string;
 	export const DESKTOP_SESSION: string;
-	export const STARSHIP_LOG: string;
 	export const LC_MONETARY: string;
+	export const STARSHIP_LOG: string;
 	export const __ETC_PROFILE_NIX_SOURCED: string;
-	export const KITTY_PID: string;
-	export const CSF_OCCTResourcePath: string;
 	export const HL_INITIAL_WORKSPACE_TOKEN: string;
+	export const CSF_OCCTResourcePath: string;
 	export const _ZO_FZF_OPTS: string;
+	export const NO_AT_BRIDGE: string;
 	export const npm_config_globalconfig: string;
 	export const XCURSOR_SIZE: string;
 	export const CSF_STEPDefaults: string;
 	export const GPG_TTY: string;
+	export const ANTIGRAVITY_CLI_ALIAS: string;
 	export const CONAN_USER_HOME: string;
 	export const EDITOR: string;
 	export const GTK_MODULES: string;
@@ -88,19 +90,20 @@ declare module '$env/static/private' {
 	export const npm_config_tmp: string;
 	export const OMF_PATH: string;
 	export const CSF_StandardLiteDefaults: string;
-	export const KITTY_PUBLIC_KEY: string;
 	export const FZF_DEFAULT_COMMAND: string;
+	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const XDG_GREETER_DATA_DIR: string;
 	export const ABBR_TIPS_PROMPT: string;
 	export const QT_STYLE_OVERRIDE: string;
 	export const MOTD_SHOWN: string;
+	export const VSCODE_INJECTION: string;
 	export const GTK2_RC_FILES: string;
 	export const __ABBR_TIPS_KEYS: string;
 	export const ANSIBLE_HOME: string;
 	export const HOME: string;
 	export const XSERVERRC: string;
-	export const LC_PAPER: string;
 	export const LANG: string;
+	export const LC_PAPER: string;
 	export const WINEPREFIX: string;
 	export const HISTFILE: string;
 	export const LS_COLORS: string;
@@ -113,29 +116,31 @@ declare module '$env/static/private' {
 	export const WAYLAND_DISPLAY: string;
 	export const STARSHIP_CONFIG: string;
 	export const NIX_SSL_CERT_FILE: string;
-	export const KITTY_WINDOW_ID: string;
+	export const GIT_ASKPASS: string;
 	export const XDG_SEAT_PATH: string;
 	export const INVOCATION_ID: string;
 	export const MANAGERPID: string;
 	export const GOMODCACHE: string;
 	export const INIT_CWD: string;
 	export const CSF_ShadersDirectory: string;
+	export const CHROME_DESKTOP: string;
 	export const CSF_EXCEPTION_PROMPT: string;
-	export const STARSHIP_SESSION_KEY: string;
 	export const CSF_XmlOcafResource: string;
+	export const STARSHIP_SESSION_KEY: string;
 	export const UWSM_WAIT_VARNAMES: string;
 	export const QT_QPA_PLATFORM: string;
 	export const XDG_CACHE_HOME: string;
 	export const npm_lifecycle_script: string;
 	export const NVM_DIR: string;
+	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const W3M_DIR: string;
 	export const WORKON_HOME: string;
+	export const VSCODE_PYTHON_AUTOACTIVATE_GUARD: string;
 	export const CSF_SHMessage: string;
 	export const GRADLE_USER_HOME: string;
 	export const npm_config_npm_version: string;
 	export const XDG_SESSION_CLASS: string;
 	export const TERM: string;
-	export const TERMINFO: string;
 	export const LC_IDENTIFICATION: string;
 	export const npm_package_name: string;
 	export const ZSH: string;
@@ -146,6 +151,7 @@ declare module '$env/static/private' {
 	export const USER: string;
 	export const MYSQL_HISTFILE: string;
 	export const SUDO_EDITOR: string;
+	export const VSCODE_GIT_IPC_HANDLE: string;
 	export const CSF_StandardDefaults: string;
 	export const CSF_IGESDefaults: string;
 	export const HYPRLAND_INSTANCE_SIGNATURE: string;
@@ -159,6 +165,7 @@ declare module '$env/static/private' {
 	export const SHLVL: string;
 	export const NVM_CD_FLAGS: string;
 	export const MOZ_ENABLE_WAYLAND: string;
+	export const PAGER: string;
 	export const LC_TELEPHONE: string;
 	export const LC_MEASUREMENT: string;
 	export const XDG_VTNR: string;
@@ -166,6 +173,7 @@ declare module '$env/static/private' {
 	export const CSF_PluginDefaults: string;
 	export const CSF_TObjMessage: string;
 	export const XDG_SESSION_ID: string;
+	export const ANTIGRAVITY_AGENT: string;
 	export const npm_config_user_agent: string;
 	export const CASROOT: string;
 	export const NUGET_PACKAGES: string;
@@ -173,7 +181,6 @@ declare module '$env/static/private' {
 	export const XDG_STATE_HOME: string;
 	export const npm_execpath: string;
 	export const XDG_RUNTIME_DIR: string;
-	export const KITTY_LISTEN_ON: string;
 	export const fish_key_bindings: string;
 	export const PYENV_ROOT: string;
 	export const DEBUGINFOD_URLS: string;
@@ -181,15 +188,17 @@ declare module '$env/static/private' {
 	export const LC_TIME: string;
 	export const HYPRCURSOR_THEME: string;
 	export const fzf_fd_opts: string;
+	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const QT_AUTO_SCREEN_SCALE_FACTOR: string;
 	export const JOURNAL_STREAM: string;
-	export const NODE_REPL_HISTORY: string;
 	export const CSF_XSMessage: string;
+	export const NODE_REPL_HISTORY: string;
 	export const XCURSOR_THEME: string;
-	export const MMGT_CLEAR: string;
 	export const GTK3_MODULES: string;
+	export const MMGT_CLEAR: string;
 	export const LEIN_HOME: string;
 	export const XDG_DATA_DIRS: string;
+	export const GDK_BACKEND: string;
 	export const SQLITE_HISTORY: string;
 	export const npm_config_noproxy: string;
 	export const BROWSER: string;
@@ -199,6 +208,7 @@ declare module '$env/static/private' {
 	export const npm_config_node_gyp: string;
 	export const DOCKER_CONFIG: string;
 	export const GDMSESSION: string;
+	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
 	export const OMNISHARPHOME: string;
 	export const FZF_DEFAULT_OPTS: string;
@@ -210,13 +220,12 @@ declare module '$env/static/private' {
 	export const QT_SCALE_FACTOR: string;
 	export const DRAWDEFAULT: string;
 	export const OMF_CONFIG: string;
-	export const KITTY_INSTALLATION_DIR: string;
 	export const npm_node_execpath: string;
 	export const LC_NUMERIC: string;
 	export const GOPATH: string;
 	export const HYPRCURSOR_SIZE: string;
+	export const TERM_PROGRAM: string;
 	export const _: string;
-	export const NODE_ENV: string;
 }
 
 /**
@@ -229,7 +238,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	
+	export const PUBLIC_BACKEND_URL: string;
 }
 
 /**
@@ -251,13 +260,14 @@ declare module '$env/dynamic/private' {
 		COLORTERM: string;
 		GTK_THEME: string;
 		PYENV_SHELL: string;
-		CSF_MDTVTexturesDirectory: string;
 		HYPRLAND_CMD: string;
+		CSF_MDTVTexturesDirectory: string;
 		XDG_CONFIG_DIRS: string;
 		npm_config_cache: string;
 		XDG_SESSION_PATH: string;
 		NVM_INC: string;
 		XDG_MENU_PREFIX: string;
+		TERM_PROGRAM_VERSION: string;
 		XDG_BACKEND: string;
 		CSF_DrawPluginDefaults: string;
 		QT_WAYLAND_DISABLE_WINDOWDECORATION: string;
@@ -278,17 +288,18 @@ declare module '$env/dynamic/private' {
 		COLOR: string;
 		npm_config_local_prefix: string;
 		DESKTOP_SESSION: string;
-		STARSHIP_LOG: string;
 		LC_MONETARY: string;
+		STARSHIP_LOG: string;
 		__ETC_PROFILE_NIX_SOURCED: string;
-		KITTY_PID: string;
-		CSF_OCCTResourcePath: string;
 		HL_INITIAL_WORKSPACE_TOKEN: string;
+		CSF_OCCTResourcePath: string;
 		_ZO_FZF_OPTS: string;
+		NO_AT_BRIDGE: string;
 		npm_config_globalconfig: string;
 		XCURSOR_SIZE: string;
 		CSF_STEPDefaults: string;
 		GPG_TTY: string;
+		ANTIGRAVITY_CLI_ALIAS: string;
 		CONAN_USER_HOME: string;
 		EDITOR: string;
 		GTK_MODULES: string;
@@ -308,19 +319,20 @@ declare module '$env/dynamic/private' {
 		npm_config_tmp: string;
 		OMF_PATH: string;
 		CSF_StandardLiteDefaults: string;
-		KITTY_PUBLIC_KEY: string;
 		FZF_DEFAULT_COMMAND: string;
+		VSCODE_GIT_ASKPASS_NODE: string;
 		XDG_GREETER_DATA_DIR: string;
 		ABBR_TIPS_PROMPT: string;
 		QT_STYLE_OVERRIDE: string;
 		MOTD_SHOWN: string;
+		VSCODE_INJECTION: string;
 		GTK2_RC_FILES: string;
 		__ABBR_TIPS_KEYS: string;
 		ANSIBLE_HOME: string;
 		HOME: string;
 		XSERVERRC: string;
-		LC_PAPER: string;
 		LANG: string;
+		LC_PAPER: string;
 		WINEPREFIX: string;
 		HISTFILE: string;
 		LS_COLORS: string;
@@ -333,29 +345,31 @@ declare module '$env/dynamic/private' {
 		WAYLAND_DISPLAY: string;
 		STARSHIP_CONFIG: string;
 		NIX_SSL_CERT_FILE: string;
-		KITTY_WINDOW_ID: string;
+		GIT_ASKPASS: string;
 		XDG_SEAT_PATH: string;
 		INVOCATION_ID: string;
 		MANAGERPID: string;
 		GOMODCACHE: string;
 		INIT_CWD: string;
 		CSF_ShadersDirectory: string;
+		CHROME_DESKTOP: string;
 		CSF_EXCEPTION_PROMPT: string;
-		STARSHIP_SESSION_KEY: string;
 		CSF_XmlOcafResource: string;
+		STARSHIP_SESSION_KEY: string;
 		UWSM_WAIT_VARNAMES: string;
 		QT_QPA_PLATFORM: string;
 		XDG_CACHE_HOME: string;
 		npm_lifecycle_script: string;
 		NVM_DIR: string;
+		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		W3M_DIR: string;
 		WORKON_HOME: string;
+		VSCODE_PYTHON_AUTOACTIVATE_GUARD: string;
 		CSF_SHMessage: string;
 		GRADLE_USER_HOME: string;
 		npm_config_npm_version: string;
 		XDG_SESSION_CLASS: string;
 		TERM: string;
-		TERMINFO: string;
 		LC_IDENTIFICATION: string;
 		npm_package_name: string;
 		ZSH: string;
@@ -366,6 +380,7 @@ declare module '$env/dynamic/private' {
 		USER: string;
 		MYSQL_HISTFILE: string;
 		SUDO_EDITOR: string;
+		VSCODE_GIT_IPC_HANDLE: string;
 		CSF_StandardDefaults: string;
 		CSF_IGESDefaults: string;
 		HYPRLAND_INSTANCE_SIGNATURE: string;
@@ -379,6 +394,7 @@ declare module '$env/dynamic/private' {
 		SHLVL: string;
 		NVM_CD_FLAGS: string;
 		MOZ_ENABLE_WAYLAND: string;
+		PAGER: string;
 		LC_TELEPHONE: string;
 		LC_MEASUREMENT: string;
 		XDG_VTNR: string;
@@ -386,6 +402,7 @@ declare module '$env/dynamic/private' {
 		CSF_PluginDefaults: string;
 		CSF_TObjMessage: string;
 		XDG_SESSION_ID: string;
+		ANTIGRAVITY_AGENT: string;
 		npm_config_user_agent: string;
 		CASROOT: string;
 		NUGET_PACKAGES: string;
@@ -393,7 +410,6 @@ declare module '$env/dynamic/private' {
 		XDG_STATE_HOME: string;
 		npm_execpath: string;
 		XDG_RUNTIME_DIR: string;
-		KITTY_LISTEN_ON: string;
 		fish_key_bindings: string;
 		PYENV_ROOT: string;
 		DEBUGINFOD_URLS: string;
@@ -401,15 +417,17 @@ declare module '$env/dynamic/private' {
 		LC_TIME: string;
 		HYPRCURSOR_THEME: string;
 		fzf_fd_opts: string;
+		VSCODE_GIT_ASKPASS_MAIN: string;
 		QT_AUTO_SCREEN_SCALE_FACTOR: string;
 		JOURNAL_STREAM: string;
-		NODE_REPL_HISTORY: string;
 		CSF_XSMessage: string;
+		NODE_REPL_HISTORY: string;
 		XCURSOR_THEME: string;
-		MMGT_CLEAR: string;
 		GTK3_MODULES: string;
+		MMGT_CLEAR: string;
 		LEIN_HOME: string;
 		XDG_DATA_DIRS: string;
+		GDK_BACKEND: string;
 		SQLITE_HISTORY: string;
 		npm_config_noproxy: string;
 		BROWSER: string;
@@ -419,6 +437,7 @@ declare module '$env/dynamic/private' {
 		npm_config_node_gyp: string;
 		DOCKER_CONFIG: string;
 		GDMSESSION: string;
+		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
 		OMNISHARPHOME: string;
 		FZF_DEFAULT_OPTS: string;
@@ -430,13 +449,12 @@ declare module '$env/dynamic/private' {
 		QT_SCALE_FACTOR: string;
 		DRAWDEFAULT: string;
 		OMF_CONFIG: string;
-		KITTY_INSTALLATION_DIR: string;
 		npm_node_execpath: string;
 		LC_NUMERIC: string;
 		GOPATH: string;
 		HYPRCURSOR_SIZE: string;
+		TERM_PROGRAM: string;
 		_: string;
-		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
@@ -454,6 +472,7 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_BACKEND_URL: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }
