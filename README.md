@@ -8,7 +8,13 @@ PRP-core is envisioned as the foundational data store for your personal informat
 
 We are thrilled to introduce PRP-core in its nascent stage, version 0.1. This is an early-stage project, representing the absolute minimum viable core functionality.
 
-This first version provides a simple `docker-compose` setup with a web UI. You can manually create 'Asset' and 'Liability' accounts and manually add transactions to track your Net Worth in real-time.
+### Key Features
+*   **Dashboard**: A high-level overview of your Net Worth and account summaries.
+*   **Accounts Management**: Create, view, and delete Asset and Liability accounts.
+*   **Transaction Tracking**: Log income and expenses, linked directly to your accounts.
+*   **Developer Tools**: Includes a Fake Data Generator to seed the database with realistic scenarios (Young Professional, Family, Small Business) for testing and demos.
+
+This first version provides a simple `docker-compose` setup with a modern web UI. You can manually create 'Asset' and 'Liability' accounts and manually add transactions to track your Net Worth in real-time.
 
 It is important to note that features such as automatic bank syncing, file uploads, and advanced analytics are all part of the future roadmap, not included in this initial version.
 

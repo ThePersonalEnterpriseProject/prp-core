@@ -71,4 +71,10 @@ The backend API will be available at `http://localhost:8000`.
 *   **API:** The backend exposes a RESTful API at `/api/v1/`.
 *   **Styling:** The frontend uses Tailwind CSS for styling.
 *   **Typing:** The frontend uses TypeScript.
-*   **Database:** Database migrations are handled by SQLAlchemy's `metadata.create_all` on application startup. For more complex migrations, a dedicated migration tool might be needed in the future.
+*   **Database:** Database migrations are handled by SQLAlchemy's `metadata.create_all` on application startup.
+*   **Fake Data:** A `fake_data` service is available for development. It can be triggered via the `/api/v1/debug/seed` endpoint or the "Developer Tools" section in the frontend Settings page.
+*   **Frontend Structure:**
+    *   `src/routes/+layout.svelte`: Main layout with Sidebar.
+    *   `src/lib/components/ui`: Reusable UI components (Card, Button, Input).
+    *   `src/routes/accounts`: Accounts management page.
+    *   `src/routes/transactions`: Transactions management page.
