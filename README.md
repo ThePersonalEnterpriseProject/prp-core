@@ -11,8 +11,10 @@ We are thrilled to introduce PRP-core in its nascent stage, version 0.1. This is
 ### Key Features
 *   **Dashboard**: A high-level overview of your Net Worth and account summaries.
 *   **Accounts Management**: Create, view, and delete Asset and Liability accounts.
+*   **Assets Management**: Track physical assets (vehicles, electronics, etc.) with value estimation.
 *   **Transaction Tracking**: Log income and expenses, linked directly to your accounts.
-*   **Developer Tools**: Includes a Fake Data Generator to seed the database with realistic scenarios (Young Professional, Family, Small Business) for testing and demos.
+*   **Modular Architecture**: Enable or disable features (Finance, Assets) via Settings to customize your experience.
+*   **Developer Tools**: Includes a modular Fake Data Generator to seed the database with realistic scenarios (Young Professional, Family, Small Business) for testing and demos.
 
 ![PRP-core Dashboard](docs/images/dashboard.png)
 

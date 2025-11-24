@@ -46,6 +46,18 @@ For context, the core tech stack of PRP-core is:
 
 If you're unsure where to start, look for issues tagged `good first issue` or `help wanted`.
 
+## Developing Modules
+
+PRP-core uses a modular architecture to keep features organized and toggleable. When adding a new major feature (e.g., Health, Productivity), please follow this structure:
+
+1.  **Backend**: Create a new directory `backend/src/prp_core/modules/<module_name>/`.
+    *   Include `models.py`, `schemas.py`, and `router.py`.
+    *   Implement a `services/seeder.py` with a `seed(scenario)` function for fake data.
+    *   Register the module in `main.py` and `models/__init__.py`.
+2.  **Frontend**: Create a new route `frontend/src/routes/<module_name>/`.
+    *   Add a link to `Sidebar.svelte` with the `module` property set to your module's name.
+    *   Add a toggle to the Settings page (this happens automatically if you register it in the backend).
+
 ## Code of Conduct
 
 I am committed to fostering a welcoming, inclusive, and harassment-free environment for everyone. All participants in our community are expected to abide by the Code of Conduct. Please read it to understand what actions will and will not be tolerated.

@@ -30,6 +30,7 @@ The application is architected as a three-tier system:
 
 1.  **Database:** A PostgreSQL container (`db`) stores all the application data.
 2.  **Backend:** A FastAPI application (`backend`) provides a RESTful API for the frontend. It handles business logic and database interactions. The API is accessible on port 8000 and is prefixed with `/api/v1`.
+    *   **Modules:** The backend uses a modular architecture. Features like `finance` and `assets` are self-contained modules in `src/prp_core/modules/`. They can be enabled/disabled via the database.
 3.  **Frontend:** A SvelteKit application (`frontend`) provides the user interface. It runs on port 5173 and communicates with the backend API.
 
 ## Building and Running
@@ -72,9 +73,10 @@ The backend API will be available at `http://localhost:8000`.
 *   **Styling:** The frontend uses Tailwind CSS for styling.
 *   **Typing:** The frontend uses TypeScript.
 *   **Database:** Database migrations are handled by SQLAlchemy's `metadata.create_all` on application startup.
-*   **Fake Data:** A `fake_data` service is available for development. It can be triggered via the `/api/v1/debug/seed` endpoint or the "Developer Tools" section in the frontend Settings page.
+*   **Fake Data:** A modular `fake_data` service orchestrates seeders from each enabled module. It can be triggered via the `/api/v1/debug/seed` endpoint or the "Developer Tools" section in the frontend Settings page.
 *   **Frontend Structure:**
     *   `src/routes/+layout.svelte`: Main layout with Sidebar.
     *   `src/lib/components/ui`: Reusable UI components (Card, Button, Input).
     *   `src/routes/accounts`: Accounts management page.
     *   `src/routes/transactions`: Transactions management page.
+    *   `src/routes/assets`: Assets management page.
