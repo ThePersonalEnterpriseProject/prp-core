@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 COPY . .
 
 # Install dependencies from pyproject.toml
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir ".[test]"
 
 EXPOSE 8000
 

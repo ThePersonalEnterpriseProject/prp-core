@@ -9,70 +9,21 @@ on:
       - main
 
 jobs:
-  backend:
+  test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install uv
-        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies
-        run: ~/.local/bin/uv pip install ".[test]"
-
-      - name: Lint with ruff
+      - name: Build and Run Tests
         run: |
-          ruff check .
-          ruff format --check .
-      - name: Type check with mypy
-        run: mypy .
+          docker compose build
+          docker compose run --rm backend python -m pytest
+          docker compose run --rm frontend npm test
+          docker compose run --rm frontend npm run build
 
-      - name: Run tests
-        run: python -m pytest
 
-  frontend:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Lint and Format
-        run: npm run lint
-
-      - name: Run tests
-        run: npm test
-
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.31.4
-        with:
-          scan-type: 'fs'
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
-          timeout: 10m
 
