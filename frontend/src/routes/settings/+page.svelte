@@ -3,31 +3,42 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import { PUBLIC_BACKEND_URL } from '$env/static/public';
 	import { invalidateAll } from '$app/navigation';
+	import { modules } from '$lib/stores/modules';
+	import type { Module } from '$lib/stores/modules';
 
 	let loading = $state(false);
 	let message = $state<string | null>(null);
 	let error = $state<string | null>(null);
 
 	async function seedData(scenario: string) {
-		if (!confirm('WARNING: This will wipe all existing data! Are you sure?')) return;
+		console.log('seedData called with:', scenario);
+		// if (!confirm('WARNING: This will wipe all existing data! Are you sure?')) {
+		// 	console.log('User cancelled seedData');
+		// 	return;
+		// }
 
+		console.log('User confirmed seedData');
 		loading = true;
 		message = null;
 		error = null;
 
 		try {
+			console.log('Fetching:', `${PUBLIC_BACKEND_URL}/api/v1/debug/seed?scenario=${scenario}`);
 			const res = await fetch(`${PUBLIC_BACKEND_URL}/api/v1/debug/seed?scenario=${scenario}`, {
 				method: 'POST'
 			});
+			console.log('Fetch response status:', res.status);
 
 			if (res.ok) {
 				message = `Successfully seeded ${scenario} data!`;
 				await invalidateAll();
 			} else {
 				const err = await res.json();
+				console.error('Seed error:', err);
 				error = err.detail || 'Failed to seed data';
 			}
 		} catch (e) {
+			console.error('Network error in seedData:', e);
 			error = 'Network error occurred';
 		} finally {
 			loading = false;
@@ -90,6 +101,53 @@
 					Load Scenario
 				</Button>
 			</div>
+		</div>
+	</Card>
+
+	<Card class="p-6">
+		<h2 class="text-lg font-semibold text-gray-900 mb-4">Modules</h2>
+		<p class="text-gray-500 mb-6">Enable or disable features to customize your experience.</p>
+
+		<div class="space-y-4">
+			{#each $modules as module}
+				<div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+					<div>
+						<h3 class="font-medium text-gray-900 capitalize">{module.name}</h3>
+						<p class="text-sm text-gray-500">
+							{module.name === 'finance' ? 'Accounts, transactions, and financial tracking.' : 'Module feature.'}
+						</p>
+					</div>
+					<label class="relative inline-flex items-center cursor-pointer">
+						<input 
+							type="checkbox" 
+							class="sr-only peer" 
+							checked={module.is_enabled}
+							onchange={async (e) => {
+								const enabled = e.currentTarget.checked;
+								try {
+									const res = await fetch(`${PUBLIC_BACKEND_URL}/api/v1/modules/${module.name}`, {
+										method: 'PUT',
+										headers: { 'Content-Type': 'application/json' },
+										body: JSON.stringify({ is_enabled: enabled })
+									});
+									if (res.ok) {
+										// Update local store
+										modules.update((ms: Module[]) => ms.map((m: Module) => 
+											m.name === module.name ? { ...m, is_enabled: enabled } : m
+										));
+										await invalidateAll(); // Refresh layout to update sidebar
+									}
+								} catch (err) {
+									console.error('Failed to toggle module', err);
+									// Revert checkbox if failed (optional, but good UX)
+									e.currentTarget.checked = !enabled;
+								}
+							}}
+						>
+						<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+					</label>
+				</div>
+			{/each}
 		</div>
 	</Card>
 </div>

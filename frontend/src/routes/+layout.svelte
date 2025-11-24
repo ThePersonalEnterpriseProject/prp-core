@@ -3,7 +3,16 @@
 	import Sidebar from '$lib/components/layout/Sidebar.svelte';
 	import { type Snippet } from 'svelte';
 
-	let { children }: { children: Snippet } = $props();
+	import { modules } from '$lib/stores/modules';
+	import type { Module } from '$lib/stores/modules';
+
+	let { children, data }: { children: Snippet, data: { modules: Module[] } } = $props();
+
+	$effect(() => {
+		if (data.modules) {
+			modules.set(data.modules);
+		}
+	});
 </script>
 
 <div class="flex h-full">

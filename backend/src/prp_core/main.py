@@ -3,10 +3,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .api.router import router as api_router
-from .routers import debug
+from .modules.finance import router as finance_router
+from .modules.assets import router as assets_router
+from .routers import debug, modules
 from .database import database, engine
-from .models import metadata
+from .models import metadata, modules as modules_model
 
 
 @asynccontextmanager
@@ -14,6 +15,15 @@ async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(metadata.create_all)
     await database.connect()
+
+    # Seed modules
+    for module_name in ["finance", "assets"]:
+        query = modules_model.select().where(modules_model.c.name == module_name)
+        module = await database.fetch_one(query)
+        if not module:
+            insert_query = modules_model.insert().values(name=module_name, is_enabled=True)
+            await database.execute(insert_query)
+
     yield
     await database.disconnect()
 
@@ -41,5 +51,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(api_router, prefix="/api/v1")
+app.include_router(finance_router.router, prefix="/api/v1")
+app.include_router(assets_router.router, prefix="/api/v1")
+app.include_router(modules.router, prefix="/api/v1", tags=["modules"])
 app.include_router(debug.router, prefix="/api/v1", tags=["debug"])

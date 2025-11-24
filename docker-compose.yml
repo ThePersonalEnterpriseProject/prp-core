@@ -18,6 +18,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    volumes:
+      - ./backend/src:/app/src
     environment:
       - POSTGRES_USER=prp_user
       - POSTGRES_PASSWORD=prp_pass
