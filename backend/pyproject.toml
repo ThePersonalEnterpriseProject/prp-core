@@ -6,7 +6,7 @@ authors = [
     {name = "Your Name", email = "you@example.com"},
 ]
 dependencies = [
-    "fastapi==0.104.1",
+    "fastapi>=0.109.0",
     "uvicorn[standard]==0.24.0",
     "sqlalchemy>=2.0.31",
     "asyncpg>=0.30.0",
