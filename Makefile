@@ -8,3 +8,6 @@ test-int:
 
 test-e2e:
 	docker build --target test ./frontend
+
+screenshots:
+	docker compose run --rm e2e

@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .modules.finance import router as finance_router
 from .modules.assets import router as assets_router
+from .modules.planning import router as planning_router
 from .routers import debug, modules
 from .database import database, engine
 from .models import metadata, modules as modules_model
@@ -19,7 +20,7 @@ async def lifespan(app: FastAPI):
     await database.connect()
 
     # Seed modules
-    for module_name in ["finance", "assets"]:
+    for module_name in ["finance", "assets", "planning"]:
         query = modules_model.select().where(modules_model.c.name == module_name)
         module = await database.fetch_one(query)
         if not module:
@@ -57,7 +58,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(finance_router.router, prefix="/api/v1")
-app.include_router(assets_router.router, prefix="/api/v1")
+app.include_router(finance_router.router, prefix="/api/v1", tags=["finance"])
+app.include_router(assets_router.router, prefix="/api/v1", tags=["assets"])
+app.include_router(planning_router.router, prefix="/api/v1", tags=["planning"])
 app.include_router(modules.router, prefix="/api/v1", tags=["modules"])
 app.include_router(debug.router, prefix="/api/v1", tags=["debug"])

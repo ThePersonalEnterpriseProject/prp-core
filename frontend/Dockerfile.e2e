@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/playwright:v1.56.1-jammy
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+
+RUN npm install
+
+# We don't copy the rest of the source here because it will be mounted at runtime
+# to allow for rapid iteration without rebuilding.

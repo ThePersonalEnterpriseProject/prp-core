@@ -1,12 +1,44 @@
 {
 	"/": [
-		"src/routes/+page.ts"
+		"src/routes/+page.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/accounts": [
-		"src/routes/accounts/+page.server.ts"
+		"src/routes/accounts/+page.server.ts",
+		"src/routes/+layout.server.ts"
 	],
-	"/settings": [],
+	"/assets": [
+		"src/routes/+layout.server.ts"
+	],
+	"/planning": [
+		"src/routes/+layout.server.ts"
+	],
+	"/planning/budgets": [
+		"src/routes/planning/budgets/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/planning/forecasting": [
+		"src/routes/planning/forecasting/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/planning/goals": [
+		"src/routes/planning/goals/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/planning/loans": [
+		"src/routes/planning/loans/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/planning/retirement": [
+		"src/routes/planning/retirement/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/settings": [
+		"src/routes/+layout.server.ts"
+	],
 	"/transactions": [
-		"src/routes/transactions/+page.server.ts"
+		"src/routes/transactions/+page.server.ts",
+		"src/routes/+layout.server.ts"
 	]
 }

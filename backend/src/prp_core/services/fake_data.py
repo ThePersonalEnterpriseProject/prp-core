@@ -1,10 +1,12 @@
 from prp_core.modules.finance.services import seeder as finance_seeder
 from prp_core.modules.assets.services import seeder as assets_seeder
+from prp_core.modules.planning.services import seeder as planning_seeder
 
 async def clear_data():
     """Wipes all data from the database."""
     await finance_seeder.clear_data()
     await assets_seeder.clear_data()
+    await planning_seeder.clear_data()
 
 async def seed_young_professional():
     """
@@ -12,6 +14,7 @@ async def seed_young_professional():
     """
     await finance_seeder.seed("young_professional")
     await assets_seeder.seed("young_professional")
+    await planning_seeder.seed("young_professional")
 
 async def seed_family():
     """
@@ -19,6 +22,7 @@ async def seed_family():
     """
     await finance_seeder.seed("family")
     await assets_seeder.seed("family")
+    await planning_seeder.seed("family")
 
 async def seed_small_business():
     """
@@ -26,3 +30,4 @@ async def seed_small_business():
     """
     await finance_seeder.seed("small_business")
     await assets_seeder.seed("small_business")
+    await planning_seeder.seed("small_business")

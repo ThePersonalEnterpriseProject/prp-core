@@ -208,3 +208,11 @@ __marimo__/
 
 .gemini/
 gha-creds-*.json
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# SvelteKit
+.svelte-kit/

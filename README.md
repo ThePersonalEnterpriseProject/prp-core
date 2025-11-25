@@ -16,7 +16,15 @@ We are thrilled to introduce PRP-core in its nascent stage, version 0.1. This is
 *   **Modular Architecture**: Enable or disable features (Finance, Assets) via Settings to customize your experience.
 *   **Developer Tools**: Includes a modular Fake Data Generator to seed the database with realistic scenarios (Young Professional, Family, Small Business) for testing and demos.
 
-![PRP-core Dashboard](docs/images/dashboard.png)
+![PRP-core Dashboard](README_assets/dashboard.png)
+
+### Screenshots
+
+**Accounts Overview**
+![Accounts](README_assets/accounts.png)
+
+**Financial Planning**
+![Planning](README_assets/planning_dashboard.png)
 
 This first version provides a simple `docker-compose` setup with a modern web UI. You can manually create 'Asset' and 'Liability' accounts and manually add transactions to track your Net Worth in real-time.
 
