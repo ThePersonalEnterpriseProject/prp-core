@@ -9,6 +9,7 @@ export default defineConfig({
     environment: 'jsdom',
     testTimeout: 5000,
     setupFiles: ['./vitest-setup.ts'],
+    exclude: ['tests/e2e/**/*', 'node_modules/**/*'],
   },
   resolve: {
     conditions: ['browser'],
