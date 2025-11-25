@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -12,8 +13,9 @@ from .models import metadata, modules as modules_model
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(metadata.create_all)
+    if not os.getenv("TESTING"):
+        async with engine.begin() as conn:
+            await conn.run_sync(metadata.create_all)
     await database.connect()
 
     # Seed modules
@@ -36,6 +38,10 @@ app = FastAPI(
     redoc_url="/api/v1/redoc",
     lifespan=lifespan
 )
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
 
 # CORS
 origins = [

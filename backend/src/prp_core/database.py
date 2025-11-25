@@ -9,7 +9,15 @@ DB_HOST = os.getenv("POSTGRES_HOST", "db")
 DB_NAME = os.getenv("POSTGRES_DB")
 DB_PORT = os.getenv("POSTGRES_PORT", "5432")
 
-if all([DB_USER, DB_PASSWORD, DB_NAME]):
+
+
+print(f"DEBUG: database.py loaded from {__file__}")
+print(f"DEBUG: TESTING={os.getenv('TESTING')}")
+if os.getenv("USE_SQLITE"):
+    print("DEBUG: Using SQLite for TESTING")
+    DATABASE_URL = "sqlite+aiosqlite:///./test.db"
+    engine_args = {"connect_args": {"check_same_thread": False}}
+elif all([DB_USER, DB_PASSWORD, DB_NAME]):
     DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     engine_args = {}
 else:
@@ -17,4 +25,4 @@ else:
     engine_args = {"connect_args": {"check_same_thread": False}}
 
 engine = create_async_engine(DATABASE_URL, **engine_args)
-database = databases.Database(DATABASE_URL)
+database = databases.Database(DATABASE_URL, **engine_args)

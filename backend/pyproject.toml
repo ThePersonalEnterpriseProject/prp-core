@@ -24,7 +24,7 @@ lint = [
 ]
 test = [
     "pytest",
-    "httpx",
+    "httpx<0.28.0",
     "pytest-asyncio",
     "ruff",
     "mypy",

@@ -18,6 +18,9 @@ COPY . .
 # Build the application
 RUN npm run build
 
+FROM builder AS test
+RUN npm run test
+
 # Stage 2: Serve the application
 FROM node:20-alpine
 

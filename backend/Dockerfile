@@ -1,5 +1,5 @@
 # backend/Dockerfile
-FROM python:3.11-slim
+FROM python:3.11-slim AS base
 
 WORKDIR /app
 
@@ -15,7 +15,15 @@ COPY . .
 # Install dependencies from pyproject.toml
 RUN pip install --no-cache-dir ".[test]"
 
-EXPOSE 8000
+# Test stage
+FROM base AS test
+COPY . .
+# Run unit tests only (fail fast)
+RUN python -m pytest tests/unit
 
-CMD ["python", "-m", "uvicorn", "prp_core.main:app", "--host", "0.0.0.0", "--port", "8000", "--app-dir", "src"]
+# Production stage
+FROM base AS production
+COPY . .
+EXPOSE 8000
+CMD ["python", "-m", "uvicorn", "prp_core.main:app", "--host", "0.0.0.0", "--port", "8000"]
 

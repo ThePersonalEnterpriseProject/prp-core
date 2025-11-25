@@ -19,12 +19,13 @@ services:
     depends_on:
       - db
     volumes:
-      - ./backend/src:/app/src
+      - ./backend:/app
     environment:
       - POSTGRES_USER=prp_user
       - POSTGRES_PASSWORD=prp_pass
       - POSTGRES_DB=prp_db
       - POSTGRES_HOST=db
+      - PYTHONPATH=/app/src
     networks:
       - prp_network
 
