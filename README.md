@@ -48,3 +48,24 @@ To get PRP-core v0.1 up and running on your local machine, follow these simple s
     ```
 
 This command will build the necessary Docker images, set up the database, backend, and frontend services, and run them in detached mode. Once the services are up, you can access the frontend web UI in your browser, typically at `http://localhost:5173`.
+
+## Testing
+
+PRP-core employs a tiered testing strategy to ensure reliability and fast feedback.
+
+### Running Tests
+
+We use `make` to simplify running tests in Docker containers:
+
+*   **Unit Tests**: Run fast, isolated tests for the backend logic.
+    ```bash
+    make test-unit
+    ```
+*   **Integration Tests**: Run backend tests against a real PostgreSQL database.
+    ```bash
+    make test-int
+    ```
+*   **E2E Tests**: Run frontend tests to verify the UI components.
+    ```bash
+    make test-e2e
+    ```

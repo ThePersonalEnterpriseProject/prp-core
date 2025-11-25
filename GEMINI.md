@@ -80,3 +80,24 @@ The backend API will be available at `http://localhost:8000`.
     *   `src/routes/accounts`: Accounts management page.
     *   `src/routes/transactions`: Transactions management page.
     *   `src/routes/assets`: Assets management page.
+    *   `src/routes/transactions`: Transactions management page.
+    *   `src/routes/assets`: Assets management page.
+
+## Testing Architecture
+
+The project follows a "Fail Fast" testing strategy with three tiers:
+
+1.  **Unit Tests (`backend/tests/unit`)**:
+    *   **Scope**: Isolated backend logic (no DB, no network).
+    *   **Execution**: Runs during Docker build (`docker build --target test`).
+    *   **Command**: `make test-unit`
+
+2.  **Integration Tests (`backend/tests/integration`)**:
+    *   **Scope**: Backend API endpoints and database interactions.
+    *   **Infrastructure**: Runs in a Docker container connected to a dedicated Postgres service.
+    *   **Command**: `make test-int`
+
+3.  **E2E/Frontend Tests (`frontend/src`)**:
+    *   **Scope**: Frontend UI components and flows.
+    *   **Execution**: Runs using `vitest` inside the frontend container.
+    *   **Command**: `make test-e2e`

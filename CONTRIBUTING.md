@@ -46,6 +46,25 @@ For context, the core tech stack of PRP-core is:
 
 If you're unsure where to start, look for issues tagged `good first issue` or `help wanted`.
 
+## Running Tests
+
+We employ a "Fail Fast" testing strategy. Please ensure all tests pass before submitting your PR.
+
+We use `make` to simplify running tests in Docker containers:
+
+*   **Unit Tests**: Run fast, isolated tests for the backend logic.
+    ```bash
+    make test-unit
+    ```
+*   **Integration Tests**: Run backend tests against a real PostgreSQL database.
+    ```bash
+    make test-int
+    ```
+*   **E2E Tests**: Run frontend tests to verify the UI components.
+    ```bash
+    make test-e2e
+    ```
+
 ## Developing Modules
 
 PRP-core uses a modular architecture to keep features organized and toggleable. When adding a new major feature (e.g., Health, Productivity), please follow this structure:
