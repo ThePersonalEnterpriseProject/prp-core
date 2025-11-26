@@ -73,7 +73,34 @@ We use `make` to simplify running tests in Docker containers:
     ```bash
     make test-int
     ```
-*   **E2E Tests**: Run frontend tests to verify the UI components.
-    ```bash
     make test-e2e
     ```
+
+## Desktop Application
+
+PRP-core can be built as a native desktop application for Windows, macOS, and Linux using Tauri.
+
+### Local Verification (Docker)
+
+To verify the desktop build locally (Linux version) without installing system dependencies:
+
+1.  **Generate Icons**:
+    ```bash
+    python generate_icons.py
+    ```
+2.  **Build in Docker**:
+    ```bash
+    docker build -t prp-desktop -f Dockerfile.desktop .
+    ```
+
+## Release Process
+
+We use a dual-build pipeline triggered by Git tags.
+
+1.  **Trigger**: Push a tag starting with `v*` (e.g., `v0.1.0`).
+    ```bash
+    git tag v0.1.0
+    git push origin v0.1.0
+    ```
+2.  **Web Build**: Automatically builds a Docker image and pushes it to GitHub Container Registry.
+3.  **Desktop Build**: Automatically builds native installers for Windows, macOS, and Linux and attaches them to the GitHub Release.

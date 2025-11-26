@@ -13,9 +13,13 @@ DB_PORT = os.getenv("POSTGRES_PORT", "5432")
 
 print(f"DEBUG: database.py loaded from {__file__}")
 print(f"DEBUG: TESTING={os.getenv('TESTING')}")
-if os.getenv("USE_SQLITE"):
-    print("DEBUG: Using SQLite for TESTING")
-    DATABASE_URL = "sqlite+aiosqlite:///./test.db"
+if os.getenv("USE_SQLITE") or os.getenv("PRP_DESKTOP_MODE"):
+    print("DEBUG: Using SQLite for TESTING/DESKTOP")
+    if os.getenv("PRP_DESKTOP_MODE"):
+        # Store DB in user data directory or local folder for now
+        DATABASE_URL = "sqlite+aiosqlite:///./prp_core.db"
+    else:
+        DATABASE_URL = "sqlite+aiosqlite:///./test.db"
     engine_args = {"connect_args": {"check_same_thread": False}}
 elif all([DB_USER, DB_PASSWORD, DB_NAME]):
     DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"

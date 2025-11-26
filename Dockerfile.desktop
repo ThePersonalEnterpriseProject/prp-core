@@ -1,0 +1,73 @@
+# Stage 1: Build Python Sidecar
+FROM python:3.11-slim AS sidecar-builder
+
+# Install system dependencies for PyInstaller
+RUN apt-get update && apt-get install -y \
+    binutils \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy backend requirements and code
+COPY backend/pyproject.toml backend/
+COPY backend/src backend/src
+COPY backend/build_sidecar.py backend/
+
+# Install dependencies
+RUN pip install --upgrade pip && \
+    pip install pyinstaller && \
+    pip install ./backend
+
+# Build the sidecar
+WORKDIR /app/backend
+RUN python build_sidecar.py
+
+# Stage 2: Build Tauri App
+FROM ubuntu:22.04 AS tauri-builder
+
+# Avoid interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    file \
+    libssl-dev \
+    libgtk-3-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev \
+    build-essential \
+    libwebkit2gtk-4.0-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js (v20)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+WORKDIR /app
+
+# Copy frontend files
+COPY frontend/package.json frontend/package-lock.json ./frontend/
+WORKDIR /app/frontend
+RUN npm install
+
+# Copy the rest of the frontend code
+COPY frontend/ .
+
+# Copy sidecar from previous stage
+# Note: The destination path must match what tauri.conf.json expects
+# We are building for Linux, so we use the x86_64-unknown-linux-gnu suffix
+COPY --from=sidecar-builder /app/backend/dist/api src-tauri/binaries/api-x86_64-unknown-linux-gnu
+
+# Build the Tauri app
+# We set TAURI_BUILD=true to trigger adapter-static in svelte.config.js
+ENV TAURI_BUILD=true
+RUN npm run tauri build
+
+# Stage 3: Export Artifacts (Optional, or just use the builder to extract)
+# We can stop at the builder stage and let the user extract the bundle

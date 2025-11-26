@@ -14,7 +14,7 @@ from .models import metadata, modules as modules_model
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    if not os.getenv("TESTING"):
+    if not os.getenv("TESTING") or os.getenv("PRP_DESKTOP_MODE"):
         async with engine.begin() as conn:
             await conn.run_sync(metadata.create_all)
     await database.connect()

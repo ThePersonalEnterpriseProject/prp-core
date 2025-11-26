@@ -216,3 +216,17 @@ blob-report/
 
 # SvelteKit
 .svelte-kit/
+
+# PyInstaller (Backend)
+backend/dist/
+backend/build/
+backend/*.spec
+
+# Tauri (Frontend)
+frontend/src-tauri/target/
+frontend/src-tauri/binaries/
+frontend/src-tauri/icons/
+
+# Local Database
+prp_core.db
+prp_core.db-journal
