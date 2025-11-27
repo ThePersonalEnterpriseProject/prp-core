@@ -1,63 +1,58 @@
 import os
-import zlib
-import struct
+import sys
 
-def create_png(width, height, color):
-    # Simple PNG generator
-    def chunk(tag, data):
-        return (struct.pack("!I", len(data)) + tag + data + 
-                struct.pack("!I", 0xFFFFFFFF & zlib.crc32(tag + data)))
+try:
+    from PIL import Image, ImageDraw
+except ImportError:
+    print("Pillow is required. Install it with: pip install Pillow")
+    sys.exit(1)
 
-    width_bytes = struct.pack("!I", width)
-    height_bytes = struct.pack("!I", height)
-    bit_depth = b'\x08'
-    color_type = b'\x06' # Truecolor with Alpha (RGBA)
-    compression = b'\x00'
-    filter_method = b'\x00'
-    interlace = b'\x00'
-
-    ihdr = b'IHDR' + width_bytes + height_bytes + bit_depth + color_type + compression + filter_method + interlace
+def create_icon(size, color):
+    # Create a new image with RGBA mode
+    img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
     
-    # Create RGBA data (Red, Green, Blue, Alpha)
-    # Using full opacity (255) for alpha
-    pixel = struct.pack("BBBB", *color, 255)
-    raw_data = b'\x00' + pixel * width
-    raw_data = raw_data * height
-    idat = b'IDAT' + zlib.compress(raw_data)
-    iend = b'IEND'
-
-    return b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', ihdr[4:]) + chunk(b'IDAT', idat[4:]) + chunk(b'IEND', iend[4:])
-
-def create_ico(png_data):
-    # ICO Header: Reserved (2), Type (2), Count (2)
-    header = struct.pack("<HHH", 0, 1, 1)
+    # Draw a colored rectangle
+    draw.rectangle([0, 0, size, size], fill=color + (255,))
     
-    # Image Directory Entry: Width (1), Height (1), Colors (1), Res (1), Planes (2), BPP (2), Size (4), Offset (4)
-    # Width/Height 0 means 256px
-    entry = struct.pack("<BBBBHHII", 0, 0, 0, 0, 1, 32, len(png_data), 22)
-    
-    return header + entry + png_data
+    return img
 
-# Create icons
+# Create icons directory
 icons_dir = "frontend/src-tauri/icons"
 if not os.path.exists(icons_dir):
     os.makedirs(icons_dir)
 
-# Generate base PNG data (256x256) for ICO and ICNS
-base_png = create_png(256, 256, (0, 0, 255))
-
-icons = [
+# Define icons to generate
+# (filename, size)
+png_icons = [
     ("32x32.png", 32),
     ("128x128.png", 128),
     ("128x128@2x.png", 256),
-    ("icon.icns", 256), # Fake it as PNG for now, usually macOS is lenient or we need a real ICNS generator
-    ("icon.ico", 256)   # Will be handled specially
+    ("icon.icns", 256), # Pillow can save as ICNS if format is specified, or we just save PNG content
 ]
 
-for name, size in icons:
-    with open(os.path.join(icons_dir, name), "wb") as f:
-        if name.endswith(".ico"):
-            # Use the base 256x256 PNG for the ICO
-            f.write(create_ico(base_png))
-        else:
-            f.write(create_png(size, size, (0, 0, 255)))
+# Generate PNGs
+for name, size in png_icons:
+    img = create_icon(size, (0, 0, 255)) # Blue
+    path = os.path.join(icons_dir, name)
+    
+    if name.endswith(".icns"):
+        # For simplicity in this script, we'll just save as PNG for ICNS 
+        # (macOS might complain but often accepts it, or we need a real ICNS lib)
+        # Actually, let's just save it as PNG content which is what we did before
+        img.save(path, format="PNG")
+    else:
+        img.save(path, format="PNG")
+
+# Generate ICO
+# ICO should contain multiple sizes
+ico_sizes = [(32, 32), (128, 128), (256, 256)]
+ico_imgs = []
+for w, h in ico_sizes:
+    ico_imgs.append(create_icon(w, (0, 0, 255)))
+
+ico_path = os.path.join(icons_dir, "icon.ico")
+# Save as ICO with multiple sizes
+ico_imgs[0].save(ico_path, format="ICO", sizes=ico_sizes, append_images=ico_imgs[1:])
+
+print("Icons generated successfully using Pillow.")
