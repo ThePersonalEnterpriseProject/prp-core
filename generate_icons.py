@@ -30,6 +30,9 @@ def create_png(width, height, color):
 
 # Create icons
 icons_dir = "frontend/src-tauri/icons"
+if not os.path.exists(icons_dir):
+    os.makedirs(icons_dir)
+
 icons = [
     ("32x32.png", 32),
     ("128x128.png", 128),
