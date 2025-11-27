@@ -225,7 +225,6 @@ backend/*.spec
 # Tauri (Frontend)
 frontend/src-tauri/target/
 frontend/src-tauri/binaries/
-frontend/src-tauri/icons/
 
 # Local Database
 prp_core.db
