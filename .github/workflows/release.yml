@@ -80,7 +80,13 @@ jobs:
           if [ "${{ matrix.platform }}" == "windows-latest" ]; then
             mv dist/api.exe frontend/src-tauri/binaries/api-x86_64-pc-windows-msvc.exe
           elif [ "${{ matrix.platform }}" == "macos-latest" ]; then
-            mv dist/api frontend/src-tauri/binaries/api-x86_64-apple-darwin
+            # Detect architecture (x86_64 or arm64)
+            ARCH=$(uname -m)
+            if [ "$ARCH" == "arm64" ]; then
+              mv dist/api frontend/src-tauri/binaries/api-aarch64-apple-darwin
+            else
+              mv dist/api frontend/src-tauri/binaries/api-x86_64-apple-darwin
+            fi
           else
             mv dist/api frontend/src-tauri/binaries/api-x86_64-unknown-linux-gnu
           fi
