@@ -9,7 +9,9 @@ else:
     executable_name = "api"
 
 # Path to the entry point
-entry_point = os.path.join("src", "prp_core", "desktop_main.py")
+# Resolve relative to this script's directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+entry_point = os.path.join(script_dir, "src", "prp_core", "desktop_main.py")
 
 PyInstaller.__main__.run([
     entry_point,
